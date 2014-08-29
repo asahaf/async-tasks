@@ -12,7 +12,8 @@ module.exports = function () {
             index = 0,
             active = 0,
             failed = false,
-            count = 0;
+            count = 0,
+            waiting = false;
 
         function AsyncTasks() {
 
@@ -38,6 +39,10 @@ module.exports = function () {
 
 
             this.start = function (callback) {
+
+                if(waiting){
+                    return this;
+                }
 
                 cb = callback || function () {};
 
@@ -70,6 +75,7 @@ module.exports = function () {
                     }
 
                     if (active === 0) {
+                        waiting = false;
                         self.start(cb);
                     }
                 }
@@ -86,6 +92,7 @@ module.exports = function () {
                     if (task.wait) {
                         index += 1;
                         count += 1;
+                        waiting = true;
                         return;
                     }
 
