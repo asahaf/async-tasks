@@ -74,6 +74,10 @@ module.exports = function () {
                     }
                 }
 
+                if(tasks.length === 0){
+                    cb();
+                    return;
+                }
 
                 while (!failed && index < tasks.length) {
 
@@ -81,6 +85,7 @@ module.exports = function () {
 
                     if (task.wait) {
                         index += 1;
+                        count += 1;
                         return;
                     }
 
