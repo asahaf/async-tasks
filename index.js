@@ -13,7 +13,8 @@ module.exports = function () {
             active = 0,
             failed = false,
             count = 0,
-            waiting = false;
+            waiting = false,
+            busy = false;
 
         function AsyncTasks() {
 
@@ -28,10 +29,14 @@ module.exports = function () {
             };
 
 
-            this.wait = function () {
+            this.wait = function (before, after) {
 
                 if (tasks.length > 0 && !tasks[tasks.length - 1].wait) {
-                    tasks.push({wait: true});
+
+                    before = before || function () {};
+                    after = after || function () {};
+
+                    tasks.push({wait: true, before: before, after: after});
                 }
 
                 return this;
@@ -40,9 +45,11 @@ module.exports = function () {
 
             this.start = function (callback) {
 
-                if(waiting){
+                if (waiting || busy || failed) {
                     return this;
                 }
+
+                busy = true;
 
                 cb = callback || function () {};
 
@@ -60,6 +67,8 @@ module.exports = function () {
 
                     if (error !== undefined && error !== null) {
                         failed = true;
+                        busy = false;
+                        waiting = false;
                         cb(error);
 
                         preparedTasks.forEach(function (task) {
@@ -71,18 +80,24 @@ module.exports = function () {
 
                     if (count === tasks.length) {
                         cb();
+                        waiting = false;
+                        busy = false;
                         return;
                     }
 
                     if (active === 0) {
+
+                        tasks[index].after();
+                        index += 1;
+                        count += 1;
                         waiting = false;
                         self.start(cb);
                     }
                 }
 
-                if(tasks.length === 0){
+                if (count === tasks.length) {
                     cb();
-                    return;
+                    return this;
                 }
 
                 while (!failed && index < tasks.length) {
@@ -90,10 +105,10 @@ module.exports = function () {
                     task = tasks[index];
 
                     if (task.wait) {
-                        index += 1;
-                        count += 1;
+                        tasks[index].before();
                         waiting = true;
-                        return;
+                        busy = false;
+                        return this;
                     }
 
                     preparedTasks.push(setImmediate(task.func, task.args, index, onetime(done, true)));
