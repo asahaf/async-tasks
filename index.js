@@ -8,7 +8,7 @@ module.exports = function () {
 
         var cb,
             tasks = [],
-            preparedTasks = [],
+            queue = [],
             index = 0,
             active = 0,
             failed = false,
@@ -36,6 +36,10 @@ module.exports = function () {
                     before = before || function () {};
                     after = after || function () {};
 
+                    if (typeof before !== 'function' || typeof after !== 'function'){
+                        throw new TypeError('Wait callbacks must be functions, if supplied');
+                    }
+
                     tasks.push({wait: true, before: before, after: after});
                 }
 
@@ -52,6 +56,10 @@ module.exports = function () {
                 busy = true;
 
                 cb = callback || function () {};
+
+                if (typeof cb !== 'function') {
+                    throw new TypeError('Callback must be a function, if supplied');
+                }
 
                 var self = this,
                     task;
@@ -70,10 +78,6 @@ module.exports = function () {
                         busy = false;
                         waiting = false;
                         cb(error);
-
-                        preparedTasks.forEach(function (task) {
-                            clearImmediate(task);
-                        });
 
                         return;
                     }
@@ -111,7 +115,7 @@ module.exports = function () {
                         return this;
                     }
 
-                    preparedTasks.push(setImmediate(task.func, task.args, index, onetime(done, true)));
+                    queue.push(setImmediate(task.func, task.args, index, onetime(done, true)));
 
                     index += 1;
                     active += 1;

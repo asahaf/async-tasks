@@ -4,6 +4,37 @@ var expect = require('chai').expect,
 describe('async-tasks', function () {
 
 
+    describe('functions', function () {
+
+        it('create task object', function () {
+            var tasks = asyncTasks();
+        });
+
+        it('push a new task to aysnc object', function() {
+            var tasks = asyncTasks();
+
+            tasks.do(function (args, index, done) {});
+        });
+
+        it('call wait', function () {
+            var tasks = asyncTasks();
+
+            tasks
+
+            .do(function (args, index, done) {})
+
+            .wait();
+        });
+
+        it('start async task', function () {
+            var tasks = asyncTasks();
+
+            tasks.start();
+
+        });
+    });
+
+
     describe('start()', function () {
 
         it('start with a single task', function (done) {
@@ -52,7 +83,6 @@ describe('async-tasks', function () {
 
         });
 
-
         it('call start multiple times', function (done) {
             var result = 0,
                 args = 5,
@@ -78,9 +108,7 @@ describe('async-tasks', function () {
 
         });
 
-
     });
-
 
 
     describe('do()', function () {
@@ -172,7 +200,6 @@ describe('async-tasks', function () {
 
 
     });
-
 
 
     describe('wait()', function () {
@@ -479,7 +506,77 @@ describe('async-tasks', function () {
 
         });
 
-    } );
+    });
+
+
+    describe('errors handling', function () {
+
+        it('passing non function object as a task (should throw a TypeError)', function () {
+            var tasks = asyncTasks(),
+                func = function () {tasks.do({}); };
+
+            expect(func).to.throw(TypeError);
+
+        });
+
+        it('passing non function object as a start callback (should throw a TypeError)', function () {
+            var tasks = asyncTasks(),
+                func = function () {tasks.start({}); };
+
+            expect(func).to.throw(TypeError);
+
+        });
+
+        it('passing non function objects as wait callbacks (should throw a TypeError)', function () {
+            var tasks = asyncTasks(),
+                func = function () {tasks.wait({},{}); };
+
+            tasks.do(function(args, index, done){});
+
+            expect(func).to.throw(TypeError);
+
+        });
+
+
+        it('respond with an error object on callback, when an error happens', function (done) {
+            var value = 0;
+                tasks = asyncTasks();
+
+            tasks
+
+            .do(function (num, index, done) {
+                done({error: 'Error'});
+            })
+
+            .start(function (error) {
+                expect(error).to.exist;
+                done();
+            });
+
+        });
+
+        it('call done callback multiple times (should throw an Error)', function () {
+
+            var tasks = asyncTasks();
+
+            tasks
+
+            .do(function (num, index, done) {
+
+                var func = function () {
+                    done();
+                    done();
+                };
+
+                expect(func).to.throw(Error);
+
+            })
+
+            .start(function (error) {});
+
+        });
+
+    });
 
 });
 

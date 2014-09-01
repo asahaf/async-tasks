@@ -1,0 +1,44 @@
+{
+  "name": "async-tasks",
+  "version": "1.0.0",
+  "description": "async-tasks let you run tasks asynchronously in a simple and easy way with the ability to make dependencies between them",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/asahaf/async-tasks"
+  },
+  "author": {
+    "name": "Ahmed AlSahaf",
+    "email": "sahaf525@gmail.com",
+    "url": "https://github.com/asahaf"
+  },
+  "bugs": {
+    "url": "https://github.com/asahaf/async-tasks/issues"
+  },
+  "homepage": "https://github.com/asahaf/async-tasks",
+  "license": "MIT",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "keywords": [
+    "tasks",
+    "task",
+    "async",
+    "asynchronous",
+    "async-tasks",
+    "async-task"
+  ],
+  "dependencies": {
+    "onetime": "^1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "^1.9.1"
+  }
+}
