@@ -75,7 +75,7 @@ The callback function, which is called when all tasks are done
 
 Type: function(error)
 
-error: is the error returned running tasks if they encounter an error
+error: error returned by the running tasks if they encounter an error
 
 ## License
 MIT © Ahmed AlSahaf
