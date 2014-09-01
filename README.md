@@ -4,7 +4,7 @@
 
 ## Install
 ```
-$ npm install --save async-task
+$ npm install --save async-tasks
 ```
 
 ## Usage
