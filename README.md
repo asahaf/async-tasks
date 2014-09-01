@@ -48,18 +48,23 @@ tasks
 add a task to the tasks list
 #### function
 Type: function(args, index, done)
-	args: the passed argument on (asyncTask.do).
-	index: the function index (its order among tasks).
-	done: the function that needs to be called when the task is done.
+
+args: the passed argument on (asyncTask.do).
+
+index: the function index (its order among tasks).
+
+done: the function that needs to be called when the task is done
 
 ### asyncTask.wait([before], [after])
 Cause the tasks added after wait() to wait till the tasks before it finish
 #### before
 Type: function
+
 called on start waiting
 #### after
 Type: function
-called on finish waiting
+
+called on finish waiting.
 
 Note: consecutive wait called are squashed into one wait
 
@@ -67,7 +72,9 @@ Note: consecutive wait called are squashed into one wait
 start added tasks asynchronously 
 #### function
 The callback function, which is called when all tasks are done
+
 Type: function(error)
+
 error: is the error returned running tasks if they encounter an error
 
 ## License
