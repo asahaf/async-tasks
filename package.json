@@ -2,10 +2,7 @@
   "name": "async-tasks",
   "version": "1.0.0",
   "description": "async-tasks let you run tasks asynchronously in a simple and easy way with the ability to make dependencies between them",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/asahaf/async-tasks"
-  },
+  "repository": "asahaf/async-tasks",
   "author": {
     "name": "Ahmed AlSahaf",
     "email": "sahaf525@gmail.com",
