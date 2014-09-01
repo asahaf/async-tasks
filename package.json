@@ -29,7 +29,9 @@
     "async",
     "asynchronous",
     "async-tasks",
-    "async-task"
+    "async-task",
+    "wait",
+    "waiting"
   ],
   "dependencies": {
     "onetime": "1.0.0"
