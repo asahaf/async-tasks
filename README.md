@@ -1,4 +1,4 @@
-# ASYNC TASKS
+# ASYNC TASKS [![Build Status](https://travis-ci.org/asahaf/async-tasks.svg?branch=master)](https://travis-ci.org/asahaf/async-tasks)
 
 **async-tasks** let you run tasks asynchronously in a simple way with the ability to make dependencies between them.
 
