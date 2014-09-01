@@ -41,7 +41,7 @@ describe('async-tasks', function () {
 
         it('start with a single task', function (done) {
             var result = 0,
-                args = 5;
+                args = 5,
                 tasks = asyncTasks();
 
 
@@ -541,7 +541,7 @@ describe('async-tasks', function () {
 
 
         it('respond with an error object on callback, when an error happens', function (done) {
-            var value = 0;
+            var value = 0,
                 tasks = asyncTasks();
 
             tasks
