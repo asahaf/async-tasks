@@ -38,8 +38,8 @@ tasks
 	console.log('all tasks are done');
 });
 
-//task 1 is done
 //task 2 is done
+//task 1 is done
 //task 3 is done after waiting for tasks 1 & 2 to finish
 ```
 
