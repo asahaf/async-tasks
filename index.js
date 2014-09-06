@@ -32,8 +32,9 @@ module.exports = function () {
             /**
              * Add new async task to the tasks list
              *
-             * @param {Function} func - task function with takes 3 args func(args, index, done). args (any) is the passed agrument, index (number) is the task index, and done (function) is a function needs to be called when the task is done
-             * @param {Any} args - agruments pass to the supplied task function when invoke
+             * @param {Function} func - task function with takes 3 args func(args, index, done). args (any) is the passed agrument, index (number) is the task index, and done (function) is a function needs to be called when the task is done.
+             * @param {Any} [args] - agruments pass to the supplied task function when invoke.
+             * @throw {TypeError} if func is not a function.
              * @api public
              */
             this.do = function (func, args) {
@@ -50,8 +51,9 @@ module.exports = function () {
             /**
              * Wait for the async tasks before it to finish then proceed
              *
-             * @param {Function} before - optional callback function, which is called on start waiting
-             * @param {Function} after - optional callback function, which is called on finish waiting
+             * @param {Function} [before] - optional callback function, which is called on start waiting.
+             * @param {Function} [after] - optional callback function, which is called on finish waiting.
+             * @throw {TypeError} if before or after is not a function.
              * @api public
              */
             this.wait = function (before, after) {
@@ -75,7 +77,8 @@ module.exports = function () {
             /**
              * Start tasks async
              *
-             * @param {Function} callback - callback is a function called when all tasks are done
+             * @param {Function} [callback] - callback is a function called when all tasks are done.
+             * @throw {TypeError} if the callback is not a function.
              * @api public
              */
             this.start = function (callback) {
