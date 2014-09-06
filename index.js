@@ -2,6 +2,12 @@
 
 var onetime = require('onetime');
 
+
+/**
+ * Create new async-tasks object
+ *
+ * @api public
+ */
 module.exports = function () {
 
     return (function () {
@@ -16,8 +22,20 @@ module.exports = function () {
             waiting = false,
             busy = false;
 
+        /**
+         * The returned async-tasks object
+         *
+         */
         function AsyncTasks() {
 
+
+            /**
+             * Add new async task to the tasks list
+             *
+             * @param {Function} func - task function with takes 3 args func(args, index, done). args (any) is the passed agrument, index (number) is the task index, and done (function) is a function needs to be called when the task is done
+             * @param {Any} args - agruments pass to the supplied task function when invoke
+             * @api public
+             */
             this.do = function (func, args) {
 
                 if (typeof func !== 'function') {
@@ -29,6 +47,13 @@ module.exports = function () {
             };
 
 
+            /**
+             * Wait for the async tasks before it to finish then proceed
+             *
+             * @param {Function} before - optional callback function, which is called on start waiting
+             * @param {Function} after - optional callback function, which is called on finish waiting
+             * @api public
+             */
             this.wait = function (before, after) {
 
                 if (tasks.length > 0 && !tasks[tasks.length - 1].wait) {
@@ -47,6 +72,12 @@ module.exports = function () {
             };
 
 
+            /**
+             * Start tasks async
+             *
+             * @param {Function} callback - callback is a function called when all tasks are done
+             * @api public
+             */
             this.start = function (callback) {
 
                 if (waiting || busy || failed) {
