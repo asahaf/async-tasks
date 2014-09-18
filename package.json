@@ -1,6 +1,6 @@
 {
   "name": "async-tasks",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "async-tasks let you run tasks asynchronously in a simple and easy way with the ability to make dependencies between them",
   "repository": "asahaf/async-tasks",
   "author": {

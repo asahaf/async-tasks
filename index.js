@@ -107,7 +107,7 @@ module.exports = function () {
                         return;
                     }
 
-                    if (error !== undefined && error !== null) {
+                    if (error !== void 0 && error !== null) {
                         failed = true;
                         busy = false;
                         waiting = false;
